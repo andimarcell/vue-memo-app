@@ -9,7 +9,7 @@ function addMemo() {
   memos.value.push({
     id: Date.now(),
     memo: newMemo.value,
-    date: new Date().toLocaleDateString("en-GB"),
+    date: new Date().toLocaleDateString("en-US"),
     backgroundColor: getrandomColor(),
   });
   newMemo.value = '';
@@ -24,43 +24,25 @@ function getrandomColor() {
 
 <template>
   <main>
-    {{  memos  }}
+    {{ memos }}
     <div class="container">
       <header>
         <h1 class="header-title">Memo</h1>
         <button @click="showForm = true" class="header-button">+</button>
       </header>
       <div class="card-container">
-        <div class="card">
-          <p class="card-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet neque ab,
-            molestiae
-            repellendus, omnis quae quasi eligendi, et fugit ea reprehenderit optio magni consequatur. Nemo ad voluptate
-            ab consequatur?</p>
-          <p class="card-date">04/03/2026</p>
-
-        </div>
-        <div class="card">
-          <p class="card-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet neque ab,
-            molestiae
-            repellendus, omnis quae quasi eligendi, et fugit ea reprehenderit optio magni consequatur. Nemo ad voluptate
-            ab consequatur?</p>
-          <p class="card-date">04/03/2026</p>
-
-        </div>
-        <div class="card">
-          <p class="card-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet neque ab,
-            molestiae
-            repellendus, omnis quae quasi eligendi, et fugit ea reprehenderit optio magni consequatur. Nemo ad voluptate
-            ab consequatur?</p>
-          <p class="card-date">04/03/2026</p>
-
+        <div v-for="(memo, index) in memos" :key="index" class="card" :style="{backgroundColor: memo.backgroundColor}">
+          <p class="card-content">
+            {{ memo.memo }}
+          </p>
+          <p class="card-date">{{ memo.date }}</p>
         </div>
       </div>
     </div>
     <div v-if="showForm" class="form-overlay">
       <div class="form-modal">
         <button @click="showForm = false" class="form-close-btn">&times;</button>
-        {{  newMemo  }}
+        {{ newMemo }}
         <textarea v-model="newMemo" name="memo" id="memo" cols="30" rows="10"></textarea>
         <button @click="addMemo" class="form-save-btn">Save</button>
       </div>
