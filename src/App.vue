@@ -21,6 +21,10 @@ function addMemo() {
   showForm.value = false;
 }
 
+function deleteMemo(id) {
+  memos.value = memos.value.filter((memo) => memo.id !== id);
+}
+
 
 function getRandomColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
@@ -44,16 +48,22 @@ function getRandomColor() {
       </header>
       <div class="card-container">
         <div 
-        v-for="memo in memos" 
+        v-for="(memo, index) in memos" 
         class="card" 
-        :key="memo.id" 
+        :key="index" 
         :style="{ backgroundColor: memo.backgroundColor }">
           <p 
           class="card-content">
             {{ memo.memo }}
           </p>
-          <p 
-          class="card-date">{{ memo.date }}</p>
+          <div class="card-footer">
+            <p class="card-date">{{ memo.date }}</p>
+            <button 
+            @click="deleteMemo(memo.id)" 
+            class="card-delete-btn">
+            x
+          </button>
+        </div>
         </div>
       </div>
     </div>
@@ -191,5 +201,11 @@ header {
 .form-error {
   color: red;
   margin-bottom: 10px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
