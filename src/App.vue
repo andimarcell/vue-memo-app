@@ -3,11 +3,12 @@ import { ref } from "vue";
 const showForm = ref(false);
 const newMemo = ref("");
 const memos = ref([]);
+const Jetmemos = ref([]);
 const errorMessage = ref("");
 
 function addMemo() {
   if (!newMemo.value) {
-    errorMessage.value = "Please enter a memo";
+    errorMessage.value = 'Please enter a memo';
     return;
   }
   memos.value.push({
@@ -16,13 +17,10 @@ function addMemo() {
     date: new Date().toLocaleDateString("en-us"),
     backgroundColor: getRandomColor(),
   });
-  newMemo.value = "";
+  newMemo.value = '';
   showForm.value = false;
 }
 
-function deleteMemo(id) {
-  memos.value = memos.value.filter((memo) => memo.id !== id);
-}
 
 function getRandomColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
@@ -31,40 +29,60 @@ function getRandomColor() {
 
 <template>
   <main>
-    <div class="container">
+    <!-- {{ memos }} -->
+    <div 
+    class="container">
       <header>
-        <h1 class="header-title">Memo</h1>
-        <button @click="showForm = true" class="header-button">+</button>
+        <h1 
+        class="header-title">
+          Memo
+        </h1>
+        <button 
+        @click="showForm = true" class="header-button">
+          +
+        </button>
       </header>
       <div class="card-container">
-        <div
-          v-for="(memo, index) in memos"
-          class="card"
-          :key="index"
-          :style="{ backgroundColor: memo.backgroundColor }"
-        >
-          <p class="card-content">{{ memo.memo }}</p>
-          <div class="card-footer">
-            <p class="card-date">{{ memo.date }}</p>
-            <button @click="deleteMemo(memo.id)" class="card-button">x</button>
-          </div>
+        <div 
+        v-for="memo in memos" 
+        class="card" 
+        :key="memo.id" 
+        :style="{ backgroundColor: memo.backgroundColor }">
+          <p 
+          class="card-content">
+            {{ memo.memo }}
+          </p>
+          <p 
+          class="card-date">{{ memo.date }}</p>
         </div>
       </div>
     </div>
-    <div v-if="showForm" class="form-overlay">
-      <div class="form-modal">
-        <button @click="showForm = false" class="form-close-btn">
+    <div 
+    v-if="showForm" 
+    class="form-overlay">
+      <div 
+      class="form-modal">
+        <button 
+        @click="showForm = false" class="form-close-btn">
           &times;
         </button>
-        <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
-        <textarea
-          v-model="newMemo"
-          name="memo"
-          id="memo"
-          cols="30"
-          rows="10"
-        ></textarea>
-        <button @click="addMemo" class="form-save-btn">Save</button>
+        <p 
+        v-if="errorMessage" 
+        class="form-error">
+          {{ errorMessage }}
+        </p>
+        <textarea 
+        v-model="newMemo" 
+        name="memo" 
+        id="memo" 
+        cols="30" 
+        rows="10">
+        </textarea>
+        <button 
+        @click="addMemo" 
+        class="form-save-btn">
+          Save
+        </button>
       </div>
     </div>
   </main>
@@ -89,10 +107,10 @@ header {
 }
 
 .header-title {
-  font-size: 48px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 25px;
-  color: #495a7d;
+  color: aqua;
 }
 
 .header-button {
@@ -102,7 +120,7 @@ header {
   height: 50px;
   cursor: pointer;
   border-radius: 100%;
-  background-color: #495a7d;
+  background-color: aqua;
   color: white;
 }
 
@@ -116,17 +134,11 @@ header {
   width: 225px;
   height: 225px;
   padding: 10px;
-  background-color: #ffa6c1;
+  background-color: yellow;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .form-overlay {
@@ -156,7 +168,7 @@ header {
   padding: 10px 20px;
   font-size: 20px;
   width: 100%;
-  background-color: #495a7d;
+  background-color: blue;
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -178,5 +190,6 @@ header {
 
 .form-error {
   color: red;
+  margin-bottom: 10px;
 }
 </style>
