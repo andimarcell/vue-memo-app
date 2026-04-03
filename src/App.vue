@@ -150,6 +150,11 @@ header {
   flex-direction: column;
   justify-content: space-between;
 }
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .form-overlay {
   position: absolute;
@@ -203,9 +208,4 @@ header {
   margin-bottom: 10px;
 }
 
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 </style>
